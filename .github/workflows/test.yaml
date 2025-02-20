@@ -25,7 +25,6 @@ jobs:
 
       - name: Build and zip the project
         run: |
-          yarn version --minor
           yarn zip
 
       - name: Create release assets
