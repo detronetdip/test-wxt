@@ -1,11 +1,9 @@
-name: Release workflow
+name: Build and Publish Release
 
 on:
   push:
-    branches:
-      - "main"
     tags:
-      - "v"
+      - "v*"
 
 jobs:
   build_and_publish:
@@ -24,29 +22,20 @@ jobs:
         run: yarn install
 
       - name: Build and zip the project
-        run: |
-          yarn zip
+        run: yarn zip
 
       - name: Create release assets
         run: |
           mkdir release
-          ls
           cp -r dist/* release/
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
-          draft: false
-          prerelease: false
+          files: release/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Publish GitHub release
         run: |
           gh release create $GITHUB_REF release/* --title "Release $GITHUB_REF" --notes "Release notes for $GITHUB_REF"
