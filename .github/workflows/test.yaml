@@ -22,7 +22,7 @@ jobs:
         run: yarn install
 
       - name: Build and zip the project
-        run:  |
+        run: |
           yarn version --minor
           yarn zip
 
@@ -32,13 +32,20 @@ jobs:
           ls
           cp -r dist/* release/
 
-      - name: Upload release assets
-        uses: softprops/action-gh-release@v1
-        with:
-          files: release/*
+      - name: Create Release
+        id: create_release
+        uses: comnoco/create-release@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
       - name: Publish GitHub release
         run: |
           gh release create $GITHUB_REF release/* --title "Release $GITHUB_REF" --notes "Release notes for $GITHUB_REF"
