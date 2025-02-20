@@ -27,6 +27,7 @@ jobs:
       - name: Create release assets
         run: |
           mkdir release
+          ls
           cp -r dist/* release/
 
       - name: Upload release assets
