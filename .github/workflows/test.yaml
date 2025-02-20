@@ -29,6 +29,7 @@ jobs:
           mkdir release
           ls
           cp -r dist/* release/
+          hub release create release_name -m release_message -a dist/wxt-react-starter-0.0.0-chrome.zip
 
       - name: Upload release assets
         uses: softprops/action-gh-release@v1
