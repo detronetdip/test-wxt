@@ -1,7 +1,9 @@
-name: Release
+name: Release workflow
 
 on:
   push:
+    branches:
+      - "main"
     tags:
       - "v"
 
