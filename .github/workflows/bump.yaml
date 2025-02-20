@@ -39,21 +39,11 @@ jobs:
 
       - name: Build and zip the project
         run: yarn zip
-      - name: test output
-        run: |
-          echo ${{steps.version_bump.outputs}}
 
       - name: Upload release assets
         uses: softprops/action-gh-release@v1
         with:
           files: dist/*
-          tag_name: "v${{ steps.version_bump.outputs.newTag }}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish GitHub release
-        run: |
-          echo $GITHUB_REF
-          gh release create $GITHUB_REF dist/* --title "Release $GITHUB_REF" --notes "Release notes for $GITHUB_REF"
+          tag_name: "${{ steps.version_bump.outputs.newTag }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
