@@ -18,6 +18,7 @@ jobs:
           git config --global user.name 'Ayondip Jana'
           git config --global user.email 'ayondip.jana@scalereal.com'
       - name: Upgrade and push version
+        id: version
         uses: phips28/gh-action-bump-version@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -48,6 +49,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: release/*
+          tag_name: ${{ steps.version.outputs.new_tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
