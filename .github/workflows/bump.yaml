@@ -27,8 +27,6 @@ jobs:
           patch-wording: "patch,fix"
           rc-wording: "pre,rc"
           tag-prefix: "v"
-      - name: Checkout repository
-        uses: actions/checkout@v3
 
       - name: Set up Node.js 22
         uses: actions/setup-node@v3
@@ -55,6 +53,7 @@ jobs:
 
       - name: Publish GitHub release
         run: |
+          echo $GITHUB_REF
           gh release create $GITHUB_REF release/* --title "Release $GITHUB_REF" --notes "Release notes for $GITHUB_REF"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
