@@ -54,6 +54,6 @@ jobs:
       - name: Publish GitHub release
         run: |
           echo $GITHUB_REF
-          gh release create $GITHUB_REF release/* --title "Release $GITHUB_REF" --notes "Release notes for $GITHUB_REF"
+          gh release create $GITHUB_REF dist/* --title "Release $GITHUB_REF" --notes "Release notes for $GITHUB_REF"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
