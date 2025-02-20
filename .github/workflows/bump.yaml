@@ -1,0 +1,29 @@
+name: Version Upgrade
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  version-upgrade:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup git
+        run: |
+          git config --global user.name 'Ayondip Jana'
+          git config --global user.email 'ayondip.jana@scalereal.com'
+      - name: Upgrade and push version
+        uses: phips28/gh-action-bump-version@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          minor-wording:  'feat,feature'
+          major-wording:  'BREAKING,major'
+          patch-wording:  'patch,fix'
+          rc-wording:     'pre,rc'
+          tag-prefix:     'v'
