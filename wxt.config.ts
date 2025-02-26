@@ -5,6 +5,9 @@ export default defineConfig({
   extensionApi: 'chrome',
   modules: ['@wxt-dev/module-react'],
   outDir: 'dist',
+  zip: {
+    artifactTemplate: "{{name}}-{{version}}-{{browser}}-{{mode}}.zip",
+  },
   manifest: () => ({
     name: 'Fravity: AI co-pilot',
     permissions: ['storage'],
