@@ -37,8 +37,19 @@ jobs:
       - name: Install dependencies with Yarn
         run: yarn install
 
-      - name: Build and zip the project
-        run: yarn zip
+      - name: Create staging environment file
+        run: |
+          echo "${{ secrets.ENV_SANDBOX }}" > .env.sandbox
+
+      - name: Create production environment file
+        run: |
+          echo "${{ secrets.ENV_PRODUCTION }}" > .env.production
+
+      - name: Build and zip the project for chrome|sandbox
+        run: yarn zip:sandbox:chrome
+      
+      - name: Build and zip the project for chrome|production
+        run: yarn zip:production:chrome
 
       - name: Upload release assets
         uses: softprops/action-gh-release@v1

@@ -9,8 +9,9 @@
     "dev:firefox": "wxt -b firefox",
     "build": "wxt build",
     "build:firefox": "wxt build -b firefox",
-    "zip": "wxt zip",
-    "zip:firefox": "wxt zip -b firefox",
+    "zip:sandbox:chrome": "wxt zip -m sandbox -b chrome",
+    "zip:production:chrome": "wxt zip -m production -b chrome",
+    "zip:production:firefox": "wxt zip -m production -b firefox",
     "compile": "tsc --noEmit",
     "postinstall": "wxt prepare"
   },
